@@ -1,0 +1,13 @@
+@import "./styles/reset";
+@import "./styles/mixins";
+@import "./styles/vars";
+
+body {
+	font-family: $text-font;
+	color: $black;
+	background-image: url("./assets/background.jpg");
+	background-size: cover;
+	background-position: center center;
+	background-attachment: fixed;
+	overflow-y: scroll;
+}
