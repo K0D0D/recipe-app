@@ -1,11 +1,12 @@
 import MealCard from "../MealCard/MealCard";
 import styles from "./Meals.module.scss";
 import imagePlaceholder from "../../assets/placeholder.jpg";
+import MealCardSkeleton from "../MealCard/MealCardSkeleton";
 
 const Meals = ({ mealsList, isLoading, error }) => (
 	<div className={styles.inner}>
 		{isLoading ? (
-			<p className={styles.message}>Loading</p>
+			Array.from(Array(25), (_, i) => <MealCardSkeleton key={i} />)
 		) : mealsList?.length ? (
 			mealsList.map((meal) => (
 				<MealCard
