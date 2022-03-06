@@ -1,0 +1,14 @@
+@import "../../styles/vars";
+
+.inner {
+    margin-top: 2.5em;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10.7em, 1fr));
+    column-gap: 2em;
+    row-gap: 2.5em;
+}
+
+.message {
+    font-size: 1.125em;
+    text-align: center;
+}

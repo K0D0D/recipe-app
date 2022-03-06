@@ -1,0 +1,39 @@
+@import "../../styles/vars";
+
+.form {
+	margin-top: 2.2em;
+	width: 100%;
+	font-size: 1.125em;
+	border-radius: 1em;
+	display: flex;
+	background-color: #fff;
+}
+
+.input {
+	width: 100%;
+	padding: 0.5em 0.4em 0.5em 1em;
+	border-radius: 1em 0 0 1em;
+	&::placeholder {
+		color: $gray;
+	}
+}
+
+.button {
+    display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-left: 0.2em;
+	padding-right: 0.3em;
+	border-radius: 0 1em 1em 0;
+	span {
+		font-size: 1.3em;
+		color: rgba($black, 0.4);
+		transition: color 0.3s;
+	}
+	&:hover span {
+		color: rgba($black, 0.6);
+	}
+	&:active span {
+		color: rgba($black, 0.8);
+	}
+}
