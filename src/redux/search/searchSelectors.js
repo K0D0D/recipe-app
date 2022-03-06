@@ -21,3 +21,45 @@ export const selectSearchError = createSelector(
     [selectSearch],
     search => search.error
 );
+
+export const selectSearchMealType = createSelector(
+    [selectSearch],
+    search => search.mealType
+);
+
+export const selectSearchDiet = createSelector(
+    [selectSearch],
+    search => search.diet
+);
+
+export const selectSearchMealTypeCurrentOption = createSelector(
+    [selectSearchMealType],
+    mealType => mealType && {
+        value: mealType.toLowerCase(),
+        label: mealType
+    } 
+);
+
+export const selectSearchDietCurrentOption = createSelector(
+    [selectSearchDiet],
+    diet => diet && {
+        value: diet.toLowerCase(),
+		label: diet
+    }
+);
+
+export const selectSearchMealTypeOptions = createSelector(
+    [selectSearch],
+    search => search.mealTypesList.map(mealType => ({
+        value: mealType.toLowerCase(),
+        label: mealType
+    }))
+);
+
+export const selectSearchDietOptions = createSelector(
+    [selectSearch],
+    search => search.dietsList.map(diet => ({
+        value: diet.toLowerCase(),
+        label: diet
+    }))
+);
