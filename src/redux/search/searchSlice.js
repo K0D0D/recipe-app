@@ -34,6 +34,10 @@ const initialState = {
 	mealType: "",
 	diet: "",
 	searchResults: [],
+	pageSize: 25,
+	currentPage: 0,
+	hasMorePages: false,
+	searchParams: null,
 	isLoading: false,
 	error: null
 };
@@ -50,6 +54,13 @@ const searchSlice = createSlice({
 		},
 		setSearchDiet: (state, { payload }) => {
 			state.diet = payload;
+		},
+		setSearchCurrentPage: (state, { payload }) => {
+			state.currentPage = payload;
+		},
+		setSearchParams: (state, { payload }) => {
+			state.searchParams = payload;
+			state.currentPage = 0;
 		}
 	},
 	extraReducers: {
@@ -60,6 +71,8 @@ const searchSlice = createSlice({
 			state.isLoading = false;
 			state.error = null;
 			state.searchResults = payload.results;
+			state.hasMorePages = payload.totalResults && 
+								 payload.results.length === state.pageSize;
 		},
 		[fetchMeals.rejected]: (state, { payload }) => {
 			state.isLoading = false;
@@ -84,6 +97,12 @@ const searchSlice = createSlice({
 
 const { actions, reducer } = searchSlice;
 
-export const { setSearchInputValue, setSearchMealType, setSearchDiet } = actions;
+export const {
+	setSearchInputValue,
+	setSearchMealType,
+	setSearchDiet,
+	setSearchCurrentPage,
+	setSearchParams
+} = actions;
 
 export default reducer;

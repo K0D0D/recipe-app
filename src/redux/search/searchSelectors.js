@@ -63,3 +63,23 @@ export const selectSearchDietOptions = createSelector(
         label: diet
     }))
 );
+
+export const selectSearchPageSize = createSelector(
+    [selectSearch],
+    search => search.pageSize
+);
+
+export const selectSearchCurrentPage = createSelector(
+    [selectSearch],
+    search => search.currentPage
+);
+
+export const selectSearchHasMorePages = createSelector(
+    [selectSearch],
+    search => search.hasMorePages
+);
+
+export const selectSearchParams = createSelector(
+    [selectSearch],
+    search => search.searchParams
+);

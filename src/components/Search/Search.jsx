@@ -12,7 +12,8 @@ import {
 import {
 	setSearchDiet,
 	setSearchInputValue,
-	setSearchMealType
+	setSearchMealType,
+	setSearchParams
 } from "../../redux/search/searchSlice";
 import Dropdown from "../Dropdown/Dropdown";
 import { fetchMeals } from "../../redux/search/searchThunks";
@@ -39,13 +40,15 @@ const Search = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		dispatch(
-			fetchMeals({
-				query: inputValue,
-				mealType,
-				diet
-			})
-		);
+		const searchParams = {
+			query: inputValue,
+			mealType,
+			diet
+		};
+
+		dispatch(setSearchParams(searchParams));
+
+		dispatch(fetchMeals(searchParams));
 	};
 
 	return (

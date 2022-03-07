@@ -3,12 +3,15 @@ import api, { apiKey } from "../../api/api";
 
 export const fetchMeals = createAsyncThunk(
     "search/fetchMeals",
-    async ({ query, mealType, diet }, { rejectWithValue }) => {
+    async ({ query, mealType, diet, offset = 0 }, { getState, rejectWithValue }) => {
+        const number = getState().search.pageSize;
+
         const requestStr = "/searchComplex?apiKey=" + apiKey +
                             (query ? "&query=" + query : "") +
                             (mealType ? "&type=" + mealType : "") +
                             (diet ? "&diet=" + diet : "") +
-                            "&number=25";
+                            "&number=" + number +
+                            "&offset=" + offset;
                     
         try {
             const response = await api.get(requestStr);
