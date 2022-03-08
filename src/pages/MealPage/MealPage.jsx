@@ -13,6 +13,7 @@ import MealInfo from "../../components/MealInfo/MealInfo";
 import { TabList, Tabs, Tab, TabPanel } from "react-tabs";
 import MealIngredients from "../../components/MealIngredients/MealIngredients";
 import MealDirections from "../../components/MealDirections/MealDirections";
+import MealPageSkeleton from "./MealPageSkeleton";
 
 const MealPage = () => {
 	const { id } = useParams();
@@ -28,10 +29,10 @@ const MealPage = () => {
 
 	return (
 		<>
-			<BottomWrapper title={details?.title}>
+			<BottomWrapper title={!isLoading && details?.title} showTitleSkeleton={isLoading}>
 				<div className={styles.inner}>
 					{isLoading ? (
-						<p className={styles.message}>Loading</p>
+						<MealPageSkeleton />
 					) : details ? (
 						<>
 							<div className={styles.left}>
