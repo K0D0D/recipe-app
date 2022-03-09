@@ -1,0 +1,33 @@
+@import "../../styles/vars";
+
+.field {
+    p {
+        margin-top: 0.4em;
+        margin-left: 0.4em;
+        color: red;
+    }
+}
+
+.input {
+    display: block;
+    border: 1px solid $gray;
+    border-radius: 0.6em;
+    padding: 0.4em 0.8em;
+    width: 100%;
+    padding: 0.5em 1em;
+    transition: opacity 0.2s;
+    &::placeholder {
+        color: $gray;
+    }
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+    }
+}
+
+.invalid {
+    border-color: red;
+    &::placeholder {
+        color: rgba(red, 0.3);
+    }
+}

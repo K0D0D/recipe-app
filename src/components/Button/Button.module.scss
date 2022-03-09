@@ -1,0 +1,39 @@
+@import "../../styles/vars";
+
+.button {
+	padding: 0.6em 2.5em;
+	border-radius: 0.6em;
+	transition: opacity 0.2s;
+	&:hover {
+		opacity: 0.9;
+	}
+	&:active {
+		opacity: 0.8;
+	}
+	&:disabled {
+		background-color: $gray;
+		color: $gray;
+		pointer-events: none;
+	}
+}
+
+.contained {
+	background-color: $green;
+	color: #fff;
+}
+
+.outlined {
+	color: $green;
+	background-color: transparent;
+	box-shadow: inset 0 0 0 1px $green;
+	&:hover {
+		opacity: 0.8;
+	}
+	&:active {
+		opacity: 0.65;
+	}
+	&:disabled {
+		background-color: transparent;
+		box-shadow: inset 0 0 0 1px $gray;
+	}
+}

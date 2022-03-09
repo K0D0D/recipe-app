@@ -1,3 +1,4 @@
+import Button from "../Button/Button";
 import styles from "./Pagination.module.scss";
 
 const Pagination = ({ onPageChange, currentPage, hasMorePages, disabled }) => {
@@ -9,20 +10,22 @@ const Pagination = ({ onPageChange, currentPage, hasMorePages, disabled }) => {
 
 	return (
 		<div className={styles.container}>
-			<button
+			<Button
+				variant="outlined"
 				className={styles.button}
 				onClick={onPrevClick}
 				disabled={disabled || isItFirstPage}
 			>
 				Prev
-			</button>
-			<button
+			</Button>
+			<Button
+				variant="outlined"
 				className={styles.button}
 				onClick={onNextClick}
 				disabled={disabled || !hasMorePages}
 			>
 				Next
-			</button>
+			</Button>
 		</div>
 	);
 };

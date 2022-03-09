@@ -1,10 +1,18 @@
 import styles from "./Header.module.scss";
 import { NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { selectAuthUser } from "../../redux/auth/authSelectors";
+import { logoutOfApp } from "../../redux/auth/authThunks";
 
 const Header = () => {
+	const user = useSelector(selectAuthUser);
+	const dispatch = useDispatch();
+
 	const checkActiveClassName = ({ isActive }) => {
 		return isActive ? `${styles.link} ${styles.active}` : styles.link;
 	};
+
+	const onLogoutClick = () => dispatch(logoutOfApp());
 
 	return (
 		<header className={styles.header}>
@@ -23,10 +31,17 @@ const Header = () => {
 				</NavLink>
 			</nav>
 			<nav className={styles.nav}>
-				<NavLink to="/auth" className={checkActiveClassName}>
-					<span className="material-icons-round">person</span>
-					Login
-				</NavLink>
+				{user ? (
+					<button className={styles.logout} onClick={onLogoutClick}>
+						<span className="material-icons-round">logout</span>
+						Logout
+					</button>
+				) : (
+					<NavLink to="/auth" className={checkActiveClassName}>
+						<span className="material-icons-round">person</span>
+						Login
+					</NavLink>
+				)}
 			</nav>
 		</header>
 	);

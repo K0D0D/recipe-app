@@ -10,12 +10,17 @@ import MealPage from "./pages/MealPage/MealPage";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { fetchRandomMeals } from "./redux/search/searchThunks";
+import { checkUserAuth } from "./redux/auth/authThunks";
 
 const App = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
 		dispatch(fetchRandomMeals());
+	}, [dispatch]);
+
+	useEffect(() => {
+		dispatch(checkUserAuth());
 	}, [dispatch]);
 
 	return (

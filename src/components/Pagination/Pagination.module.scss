@@ -7,21 +7,6 @@
 }
 
 .button {
-    padding: 0.6em 2.5em;
-    border-radius: 0.6em;
-    transition: opacity 0.2s;
-    color: $green;
-	box-shadow: inset 0 0 0 1px $green;
-	&:hover {
-		opacity: 0.8;
-	}
-	&:active {
-		opacity: 0.65;
-	}
-	&:disabled {
-        color: $gray;
-		box-shadow: inset 0 0 0 1px $gray;
-	}
     &:not(:first-child) {
         margin-left: 1.25em;
     }
