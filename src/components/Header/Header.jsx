@@ -1,18 +1,19 @@
 import styles from "./Header.module.scss";
 import { NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectAuthUser } from "../../redux/auth/authSelectors";
-import { logoutOfApp } from "../../redux/auth/authThunks";
+import { useState } from "react";
+import UserProfile from "../UserProfile/UserProfile";
 
 const Header = () => {
 	const user = useSelector(selectAuthUser);
-	const dispatch = useDispatch();
+	const [profileIsOpen, setProfileIsOpen] = useState(false);
 
 	const checkActiveClassName = ({ isActive }) => {
 		return isActive ? `${styles.link} ${styles.active}` : styles.link;
 	};
 
-	const onLogoutClick = () => dispatch(logoutOfApp());
+	const toggleProfileIsOpen = () => setProfileIsOpen(!profileIsOpen);
 
 	return (
 		<header className={styles.header}>
@@ -32,10 +33,25 @@ const Header = () => {
 			</nav>
 			<nav className={styles.nav}>
 				{user ? (
-					<button className={styles.logout} onClick={onLogoutClick}>
-						<span className="material-icons-round">logout</span>
-						Logout
-					</button>
+					<div className={styles.user}>
+						<button
+							className={styles.profileBtn}
+							onClick={toggleProfileIsOpen}
+						>
+							{user.profilePic ? (
+								<img
+									className={styles.userAvatar}
+									src={user.profilePic}
+									alt=""
+								/>
+							) : (
+								<span className={styles.userAvatar}>
+									{user.name[0].toUpperCase()}
+								</span>
+							)}
+						</button>
+						<UserProfile isOpen={profileIsOpen} />
+					</div>
 				) : (
 					<NavLink to="/auth" className={checkActiveClassName}>
 						<span className="material-icons-round">person</span>
