@@ -2,18 +2,24 @@ import styles from "./Header.module.scss";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectAuthUser } from "../../redux/auth/authSelectors";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import UserProfile from "../UserProfile/UserProfile";
+import useOutsideClick from "../../hooks/useOutsideClick";
 
 const Header = () => {
 	const user = useSelector(selectAuthUser);
 	const [profileIsOpen, setProfileIsOpen] = useState(false);
+	const profileRef = useRef();
 
 	const checkActiveClassName = ({ isActive }) => {
 		return isActive ? `${styles.link} ${styles.active}` : styles.link;
 	};
 
 	const toggleProfileIsOpen = () => setProfileIsOpen(!profileIsOpen);
+
+	useOutsideClick(profileRef, () => {
+		if (profileIsOpen) setProfileIsOpen(false);
+	});
 
 	return (
 		<header className={styles.header}>
@@ -50,7 +56,7 @@ const Header = () => {
 								</span>
 							)}
 						</button>
-						<UserProfile isOpen={profileIsOpen} />
+						<UserProfile isOpen={profileIsOpen} profileRef={profileRef} />
 					</div>
 				) : (
 					<NavLink to="/auth" className={checkActiveClassName}>

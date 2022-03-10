@@ -3,15 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectAuthUser } from "../../redux/auth/authSelectors";
 import { logoutOfApp } from "../../redux/auth/authThunks";
 
-const UserProfile = ({ isOpen }) => {
-    const dispatch = useDispatch();
+const UserProfile = ({ isOpen, profileRef }) => {
+	const dispatch = useDispatch();
 
 	const user = useSelector(selectAuthUser);
 
-    const onLogoutClick = () => dispatch(logoutOfApp());
+	const onLogoutClick = () => dispatch(logoutOfApp());
 
 	return (
-		<div className={`${styles.profile} ${isOpen ? styles.profileOpened : ""}`}>
+		<div
+			className={`${styles.profile} ${isOpen ? styles.profileOpened : ""}`}
+			ref={profileRef}
+		>
 			{user.profilePic ? (
 				<img className={styles.profileAvatar} src={user.profilePic} alt="" />
 			) : (
