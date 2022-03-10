@@ -5,7 +5,8 @@ import {
 	firebaseLogin,
 	signInWithGoogle,
 	firebaseLogout,
-	getCurrentUser
+	getCurrentUser,
+	firebaseErrors
 } from "../../firebase/firebaseUtils";
 import { doc, setDoc } from "firebase/firestore";
 
@@ -24,7 +25,7 @@ export const checkUserAuth = createAsyncThunk(
 				return null;
 			}
 		} catch (err) {
-			return rejectWithValue(err.message);
+			return rejectWithValue(firebaseErrors[err.code] || err.message);
 		}
 	}
 );
@@ -42,7 +43,7 @@ export const registerInApp = createAsyncThunk(
 				uid: user.uid
 			};
 		} catch (err) {
-			return rejectWithValue(err.message);
+			return rejectWithValue(firebaseErrors[err.code] || err.message);
 		}
 	}
 );
@@ -58,7 +59,7 @@ export const loginToApp = createAsyncThunk(
 				uid: user.uid
 			};
 		} catch (err) {
-			return rejectWithValue(err.message);
+			return rejectWithValue(firebaseErrors[err.code] || err.message);
 		}
 	}
 );
@@ -79,7 +80,7 @@ export const loginWithGoogle = createAsyncThunk(
 				uid: user.uid
 			};
 		} catch (err) {
-			return rejectWithValue(err.message);
+			return rejectWithValue(firebaseErrors[err.code] || err.message);
 		}
 	}
 );
@@ -92,7 +93,7 @@ export const logoutOfApp = createAsyncThunk(
 
 			return null;
 		} catch (err) {
-			return rejectWithValue(err.message);
+			return rejectWithValue(firebaseErrors[err.code] || err.message);
 		}
 	}
 );

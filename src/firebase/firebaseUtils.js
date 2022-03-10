@@ -64,11 +64,25 @@ const signInWithGoogle = () => {
 	return signInWithPopup(auth, provider);
 };
 
+const firebaseErrors = {
+	"auth/email-already-in-use": "The email address is already in use",
+	"auth/user-not-found": "There is no user record corresponding to this identifier",
+	"auth/wrong-password": "Incorrect e-mail or password. Please try again",
+	"auth/network-request-failed": "Please check your network connection and try again",
+	"auth/popup-closed-by-user":
+		"The popup has been closed by the user before finalizing the operation",
+	"auth/cancelled-popup-request":
+		"This operation has been cancelled due to another conflicting popup being opened",
+	"auth/popup-blocked": "Unable to establish a connection with the popup",
+	"auth/internal-error": "An internal error has occurred"
+};
+
 export {
 	db,
 	getCurrentUser,
 	firebaseLogin,
 	firebaseRegister,
 	firebaseLogout,
-	signInWithGoogle
+	signInWithGoogle,
+	firebaseErrors
 };
