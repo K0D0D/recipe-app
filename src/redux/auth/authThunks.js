@@ -9,6 +9,7 @@ import {
 	firebaseErrors
 } from "../../firebase/firebaseUtils";
 import { doc, setDoc } from "firebase/firestore";
+import { updateProfile } from "firebase/auth";
 
 export const checkUserAuth = createAsyncThunk(
 	"auth/checkUserAuth",
@@ -19,7 +20,9 @@ export const checkUserAuth = createAsyncThunk(
 			if (user) {
 				return {
 					email: user.email,
-					uid: user.uid
+					uid: user.uid,
+					name: user.displayName,
+					profilePic: user.photoURL
 				};
 			} else {
 				return null;
@@ -32,15 +35,22 @@ export const checkUserAuth = createAsyncThunk(
 
 export const registerInApp = createAsyncThunk(
 	"auth/registerInApp",
-	async ({ email, password }, { rejectWithValue }) => {
+	async ({ email, password, name, profilePic }, { rejectWithValue }) => {
 		try {
 			const { user } = await firebaseRegister(email, password);
+
+			await updateProfile(user, {
+				displayName: name,
+				photoURL: profilePic
+			});
 
 			await setDoc(doc(db, "users", user.uid), { uid: user.uid, email });
 
 			return {
 				email,
-				uid: user.uid
+				uid: user.uid,
+				name,
+				profilePic
 			};
 		} catch (err) {
 			return rejectWithValue(firebaseErrors[err.code] || err.message);
@@ -56,7 +66,9 @@ export const loginToApp = createAsyncThunk(
 
 			return {
 				email,
-				uid: user.uid
+				uid: user.uid,
+				name: user.displayName,
+				profilePic: user.photoURL
 			};
 		} catch (err) {
 			return rejectWithValue(firebaseErrors[err.code] || err.message);
@@ -77,7 +89,9 @@ export const loginWithGoogle = createAsyncThunk(
 
 			return {
 				email: user.email,
-				uid: user.uid
+				uid: user.uid,
+				name: user.displayName,
+				profilePic: user.photoURL
 			};
 		} catch (err) {
 			return rejectWithValue(firebaseErrors[err.code] || err.message);

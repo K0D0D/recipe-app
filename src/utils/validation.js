@@ -21,3 +21,10 @@ export const passwordFieldRules = {
 		message: "Use 6 characters or more for your password"
 	}
 };
+
+export const urlFieldRules = {
+    pattern: {
+        value: /^(ftp|http|https):\/\/[^ "]+$/,
+        message: "Please enter a valid URL"
+    }
+};

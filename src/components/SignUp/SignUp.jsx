@@ -2,7 +2,8 @@ import { useForm } from "react-hook-form";
 import InputField from "../InputField/InputField";
 import {
 	emailFieldRules,
-	passwordFieldRules
+	passwordFieldRules,
+	urlFieldRules
 } from "../../utils/validation";
 import { useDispatch } from "react-redux";
 import { registerInApp } from "../../redux/auth/authThunks";
@@ -18,11 +19,37 @@ const SignUp = ({ rowClassName }) => {
 		mode: "onTouched"
 	});
 
-	const onSubmit = ({ email, password }) =>
-		dispatch(registerInApp({ email, password }));
+	const onSubmit = ({ email, password, name, profilePic }) =>
+		dispatch(registerInApp({ email, password, name, profilePic }));
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
+			<div className={rowClassName}>
+				<InputField
+					name="name"
+					control={control}
+					rules={{
+						required: true
+					}}
+					placeholder="Your name"
+					autoComplete="off"
+					type="text"
+					disabled={isLoading}
+				/>
+			</div>
+			<div className={rowClassName}>
+				<InputField
+					name="profilePic"
+					control={control}
+					rules={{
+						...urlFieldRules
+					}}
+					placeholder="Photo URL (optional)"
+					autoComplete="off"
+					type="text"
+					disabled={isLoading}
+				/>
+			</div>
 			<div className={rowClassName}>
 				<InputField
 					name="email"
