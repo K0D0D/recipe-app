@@ -1,10 +1,39 @@
 import styles from "./MealInfo.module.scss";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectMealDetailsData } from "../../redux/meal_details/mealDetailsSelectors";
 import imagePlaceholder from "../../assets/placeholder.jpg";
+import { useNavigate } from "react-router-dom";
+import {
+	selectBookmarksIsLoading,
+	selectIsItBookmark
+} from "../../redux/bookmarks/bookmarksSelectors";
+import { selectAuthUser } from "../../redux/auth/authSelectors";
+import { addBookmark, removeBookmark } from "../../redux/bookmarks/bookmarksThunks";
 
 const MealInfo = () => {
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
 	const details = useSelector(selectMealDetailsData);
+	const isLoading = useSelector(selectBookmarksIsLoading);
+	const isItBookmark = useSelector(selectIsItBookmark);
+	const user = useSelector(selectAuthUser);
+
+	const toggleBookmark = () => {
+		if (!user) return navigate("/auth");
+
+		if (isItBookmark) {
+			dispatch(removeBookmark(details.id));
+		} else {
+			dispatch(
+				addBookmark({
+					id: details.id,
+					image: details.image || "",
+					title: details.title
+				})
+			);
+		}
+	};
 
 	return (
 		<>
@@ -14,8 +43,16 @@ const MealInfo = () => {
 					src={details.image || imagePlaceholder}
 					alt={details.title}
 				/>
-				<button className={styles.bookmark}>
-					<span className="material-icons-round">bookmark</span>
+				<button
+					className={styles.bookmark}
+					onClick={toggleBookmark}
+					disabled={isLoading}
+				>
+					{isItBookmark ? (
+						<span className="material-icons-round">bookmark</span>
+					) : (
+						<span className="material-icons-round">bookmark_border</span>
+					)}
 				</button>
 			</div>
 			<div className={styles.infoContainer}>

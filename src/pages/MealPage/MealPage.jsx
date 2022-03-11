@@ -14,6 +14,8 @@ import { TabList, Tabs, Tab, TabPanel } from "react-tabs";
 import MealIngredients from "../../components/MealIngredients/MealIngredients";
 import MealDirections from "../../components/MealDirections/MealDirections";
 import MealPageSkeleton from "./MealPageSkeleton";
+import { selectAuthUser } from "../../redux/auth/authSelectors";
+import { checkBookmark } from "../../redux/bookmarks/bookmarksThunks";
 
 const MealPage = () => {
 	const { id } = useParams();
@@ -22,10 +24,15 @@ const MealPage = () => {
 	const details = useSelector(selectMealDetailsData);
 	const isLoading = useSelector(selectMealDetailsIsLoading);
 	const error = useSelector(selectMealDetailsError);
+	const user = useSelector(selectAuthUser);
 
 	useEffect(() => {
 		dispatch(fetchMealDetails(id));
 	}, [dispatch, id]);
+
+	useEffect(() => {
+		if (user) dispatch(checkBookmark(id));
+	}, [dispatch, user, id]);
 
 	return (
 		<>
