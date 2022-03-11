@@ -16,3 +16,8 @@ export const selectBookmarksError = createSelector(
 	[selectBookmarks],
 	(bookmarks) => bookmarks.error
 );
+
+export const selectBookmarksList = createSelector(
+    [selectBookmarks],
+    (bookmarks) => bookmarks.bookmarksList
+);

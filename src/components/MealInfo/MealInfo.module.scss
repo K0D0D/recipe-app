@@ -25,11 +25,17 @@
 	&:active {
 		transform: translateY(1px);
 	}
+	&:disabled {
+		pointer-events: none;
+	}
 	&:hover span {
 		opacity: 0.8;
 	}
 	&:active span {
 		opacity: 0.65;
+	}
+	&:disabled span {
+		opacity: 0.4;
 	}
 }
 

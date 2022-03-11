@@ -7,7 +7,11 @@ import {
 	serverTimestamp,
 	setDoc,
 	deleteDoc,
-	getDoc
+	getDoc,
+    query,
+    collection,
+    orderBy,
+    getDocs
 } from "firebase/firestore";
 
 export const addBookmark = createAsyncThunk(
@@ -56,6 +60,32 @@ export const checkBookmark = createAsyncThunk(
 			const bookmarkDocSnap = await getDoc(bookmarkDocRef);
 
 			return bookmarkDocSnap.exists();
+		} catch (err) {
+			return rejectWithValue(err.message);
+		}
+	}
+);
+
+export const fetchBookmarks = createAsyncThunk(
+	"bookmarks/fetchBookmarks",
+	async (_, { getState, rejectWithValue }) => {
+		try {
+			const { uid } = getState().auth.user;
+
+			const q = query(
+				collection(db, `users/${uid}/bookmarks`),
+				orderBy("timestamp", "desc")
+			);
+
+			const querySnap = await getDocs(q);
+
+			const docs = querySnap.docs.map((doc) => {
+				const { id, image, title } = doc.data();
+
+				return { id, image, title };
+			});
+
+			return docs;
 		} catch (err) {
 			return rejectWithValue(err.message);
 		}

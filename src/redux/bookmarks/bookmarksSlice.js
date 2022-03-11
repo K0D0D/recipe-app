@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addBookmark, removeBookmark, checkBookmark } from "./bookmarksThunks";
+import { addBookmark, removeBookmark, checkBookmark, fetchBookmarks } from "./bookmarksThunks";
 
 const initialState = {
     isItBookmark: false,
+    bookmarksList: [],
     isLoading: false,
     error: null
 };
@@ -44,6 +45,19 @@ const bookmarksSlice = createSlice({
         [checkBookmark.rejected]: (state, { payload }) => {
             state.isLoading = false;
             state.error = payload;
+        },
+        [fetchBookmarks.pending]: (state) => {
+            state.isLoading = true;
+        },
+        [fetchBookmarks.fulfilled]: (state, { payload }) => {
+            state.isLoading = false;
+            state.error = null;
+            state.bookmarksList = payload;
+        },
+        [fetchBookmarks.rejected]: (state, { payload }) => {
+            state.isLoading = false;
+            state.error = payload;
+            state.bookmarksList = [];
         }
     }
 });
