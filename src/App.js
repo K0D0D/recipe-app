@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import { fetchRandomMeals } from "./redux/search/searchThunks";
 import { checkUserAuth } from "./redux/auth/authThunks";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import Toast from "./components/Toast/Toast";
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -54,6 +55,7 @@ const App = () => {
 						<Route path="*" exact element={<Navigate to="/" />} />
 					</Routes>
 				</main>
+				<Toast />
 				<Footer />
 			</Router>
 		</div>

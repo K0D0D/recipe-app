@@ -1,0 +1,26 @@
+@import "../../styles/vars";
+@import "../../styles/mixins";
+
+.container {
+	bottom: 30px;
+	right: 30px;
+    left: auto;
+	padding: 0;
+	min-width: 16em;
+}
+
+.toast {
+	margin-bottom: 0;
+	padding: 0.6em;
+	border-radius: 0.6em;
+	box-shadow: $shadow;
+	&:not(:last-child) {
+		margin-bottom: 0.93em;
+	}
+}
+
+.body {
+	font-family: $text-font;
+	color: $black;
+	padding: 0 0.6em;
+}

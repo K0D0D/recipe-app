@@ -13,6 +13,7 @@ import {
     orderBy,
     getDocs
 } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 export const addBookmark = createAsyncThunk(
 	"bookmarks/addBookmark",
@@ -28,7 +29,11 @@ export const addBookmark = createAsyncThunk(
 				title,
 				timestamp: serverTimestamp()
 			});
+
+			toast.success("Bookmark added");
 		} catch (err) {
+			toast.error("Something went wrong");
+
 			return rejectWithValue(err.message);
 		}
 	}
@@ -43,7 +48,11 @@ export const removeBookmark = createAsyncThunk(
 			const bookmarkDocRef = doc(db, `users/${uid}/bookmarks/${id}`);
 
 			await deleteDoc(bookmarkDocRef);
+
+			toast.success("Bookmark  removed");
 		} catch (err) {
+			toast.error("Something went wrong");
+
 			return rejectWithValue(err.message);
 		}
 	}
