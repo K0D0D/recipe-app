@@ -1,0 +1,46 @@
+@import "../../styles/vars";
+
+.li {
+	padding: 0.6em 0.8em;
+	box-shadow: $shadow;
+	border-radius: 0.5em;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	&:not(:first-child) {
+		margin-top: 0.8em;
+	}
+}
+
+.label {
+	width: 100%;
+	word-break: break-word;
+	input {
+		border-radius: 50%;
+	}
+}
+
+.labelChecked {
+	text-decoration: line-through;
+	color: $gray;
+}
+
+.btn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0.1em;
+	opacity: 0.3;
+	transition: opacity 0.2s;
+	border-radius: 0.4em;
+	&:hover {
+		opacity: 0.3;
+		color: red;
+	}
+	&:active {
+		opacity: 0.5;
+	}
+	span {
+		font-size: 1.6em;
+	}
+}
