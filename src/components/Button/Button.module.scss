@@ -1,4 +1,5 @@
 @import "../../styles/vars";
+@import "../../styles/mixins";
 
 .button {
 	padding: 0.6em 2.5em;
@@ -20,12 +21,14 @@
 .contained {
 	background-color: $green;
 	color: #fff;
+	@include focus-shadow;
 }
 
 .outlined {
 	color: $green;
 	background-color: transparent;
 	box-shadow: inset 0 0 0 1px $green;
+	@include focus-shadow($green);
 	&:hover {
 		opacity: 0.8;
 	}

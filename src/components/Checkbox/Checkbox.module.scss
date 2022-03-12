@@ -1,4 +1,5 @@
 @import "../../styles/vars";
+@import "../../styles/mixins";
 
 .label {
 	display: block;
@@ -19,6 +20,7 @@
 		border: 1px solid $gray;
 		border-radius: 0.4em;
 		transition: background-color 0.2s, border-color 0.2s;
+		@include focus-shadow;
 	}
 	&:before {
 		content: "";
