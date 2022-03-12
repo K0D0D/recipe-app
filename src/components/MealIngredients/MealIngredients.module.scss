@@ -2,30 +2,22 @@
 
 .ul {
 	margin-top: 1.2em;
-	counter-reset: my-counter;
 }
 
 .li {
 	line-height: 1.5em;
-	counter-increment: my-counter;
-	padding: 0.45em 0 0.45em 2em;
 	position: relative;
+	padding: 0.4em 0.6em;
+	transition: 0.1s;
 	&:not(:first-child) {
 		border-top: 1px solid #e6e6e6;	
 	}
-	&:before {
-		content: counter(my-counter);
-		position: absolute;
-		left: 0;
-		font-size: 0.85em;
-		line-height: 0;
-		width: 1.6em;
-		height: 1.6em;
-		color: #fff;
-		background-color: $light-green;
-		border-radius: 50%;
-		display: flex;
-		justify-content: center;
-		align-items: center;
+	&:hover {
+		background-color: #f0f0f0;
 	}
+}
+
+.button {
+	font-size: 0.95em;
+	margin-top: 1.875em;
 }

@@ -5,9 +5,11 @@ import {
 	serverTimestamp,
 	updateDoc,
 	setDoc,
-	deleteDoc
+	deleteDoc,
+	writeBatch
 } from "firebase/firestore";
 import { nanoid } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 
 export const addShoppingListItem = createAsyncThunk(
 	"shoppingList/addShoppingListItem",
@@ -25,6 +27,37 @@ export const addShoppingListItem = createAsyncThunk(
 				timestamp: serverTimestamp()
 			});
 		} catch (err) {
+			return rejectWithValue(err.message);
+		}
+	}
+);
+
+export const addShoppingListItems = createAsyncThunk(
+	"shoppingList/addShoppingListItems",
+	async (items, { getState, dispatch, rejectWithValue }) => {
+		try {
+			const { uid } = getState().auth.user;
+			const batch = writeBatch(db);
+
+			items.forEach((item) => {
+				const id = nanoid();
+
+				const itemDocRef = doc(db, `users/${uid}/shopping_list/${id}`);
+
+				batch.set(itemDocRef, {
+					id,
+					title: item.title,
+					completed: false,
+					timestamp: serverTimestamp()
+				});
+			});
+
+			await batch.commit();
+
+			toast.success("Added to shopping list");
+		} catch (err) {
+			toast.error(err.message);
+
 			return rejectWithValue(err.message);
 		}
 	}

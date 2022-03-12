@@ -21,3 +21,8 @@ export const selectShoppingListError = createSelector(
     [selectShoppingList],
     shoppingList => shoppingList.error
 );
+
+export const selectShoppingListCheckedItems = createSelector(
+    [selectShoppingList],
+    shoppingList => shoppingList.checkedItems
+);
