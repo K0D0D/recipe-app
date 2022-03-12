@@ -18,6 +18,7 @@ import {
 import Dropdown from "../Dropdown/Dropdown";
 import { fetchMeals } from "../../redux/search/searchThunks";
 import { useDispatch, useSelector } from "react-redux";
+import TopWrapperForm from "../TopWrapperForm/TopWrapperForm";
 
 const Search = () => {
 	const dispatch = useDispatch();
@@ -51,20 +52,19 @@ const Search = () => {
 		dispatch(fetchMeals(searchParams));
 	};
 
+	const clearInput = () => dispatch(setSearchInputValue(""));
+
 	return (
 		<>
-			<form className={styles.form} onSubmit={handleSubmit}>
-				<input
-					className={styles.input}
-					placeholder="What recipe are you looking for?"
-					onChange={handleInputChange}
-					value={inputValue}
-					type="text"
-				/>
-				<button className={styles.button} disabled={isLoading}>
-					<span className="material-icons-round">search</span>
-				</button>
-			</form>
+			<TopWrapperForm
+				onSubmit={handleSubmit}
+				onChange={handleInputChange}
+				placeholder="What recipe are you looking for?"
+				inputValue={inputValue}
+				buttonIcon={<span className="material-icons-round">search</span>}
+				disabled={isLoading}
+				onClearButtonClick={clearInput}
+			/>
 			<div className={styles.selects}>
 				<Dropdown
 					className={styles.select}
