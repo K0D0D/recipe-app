@@ -6,21 +6,33 @@
 	margin-top: 1.8em;
 	display: flex;
 	justify-content: space-between;
+	@include media($max: "md") {
+		flex-direction: column;
+	}
 }
 
 .left {
 	flex: 1 1 0;
 	margin-right: 2em;
+	@include media($max: "md") {
+		margin-right: 0;
+	}
 }
 
 .right {
 	flex: 1.65 1 0;
+	@include media($max: "md") {
+		margin-top: 1.6em;
+	}
 }
 
 .tabList {
 	font-size: 1.05em;
 	display: flex;
 	user-select: none;
+	@include media($max: "md") {
+		justify-content: center;
+	}
 }
 
 .tab {

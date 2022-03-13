@@ -10,13 +10,32 @@
 	align-items: center;
 	background-color: #fff;
 	border-radius: 0 0 1em 1em;
+	@include media($max: "xl") {
+		padding: 0 2.5em;
+	}
+	@include media($max: "lg") {
+		padding: 0 1.63em;
+	}
+	@include media($max: "sm") {
+		border-radius: 0;
+	}
+	@include media($max: "xs") {
+		padding: 0 1em;
+	}
 }
 
-.nav {
+.primaryNav,
+.secondaryNav {
 	user-select: none;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+}
+
+.primaryNav {
+	@include media($max: "md") {
+		display: none;
+	}
 }
 
 .link {
@@ -49,23 +68,43 @@
 }
 
 .user {
-    position: relative; 
+	position: relative;
 }
 
 .profileBtn {
-    border-radius: 50%;
+	border-radius: 50%;
 	@include focus-shadow;
 }
 
 .userAvatar {
-    border-radius: 50%;
-    background-color: rgba($black, 0.5);
-    width: 1.8em;
-    height: 1.8em;
-    font-size: 1.2em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 600;
-    color: #fff;
+	border-radius: 50%;
+	background-color: rgba($black, 0.5);
+	width: 1.8em;
+	height: 1.8em;
+	font-size: 1.2em;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-weight: 600;
+	color: #fff;
+}
+
+.menuBtn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: opacity 0.2s;
+	&:hover {
+		opacity: 0.8;
+	}
+	&:active {
+		opacity: 0.65;
+	}
+	@include focus-shadow;
+	@include media("md") {
+		display: none;
+	}
+	span {
+		font-size: 1.8em;
+	}
 }

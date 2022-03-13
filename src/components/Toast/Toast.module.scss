@@ -7,6 +7,16 @@
     left: auto;
 	padding: 0;
 	min-width: 16em;
+	@include media($max: "md") {
+        height: 4.3em;
+        bottom: auto;
+        top: 5px;
+        right: 5px;
+        left: 5px;
+        width: calc(100% - 10px);
+        min-width: 0;
+        font-size: 0.95em;
+    }
 }
 
 .toast {
@@ -14,8 +24,14 @@
 	padding: 0.6em;
 	border-radius: 0.6em;
 	box-shadow: $shadow;
+	@include media($max: "md") {
+        padding: 0.6em;
+    }
 	&:not(:last-child) {
 		margin-bottom: 0.93em;
+        @include media($max: "md") {
+            margin-bottom: 0.3em;
+        }
 	}
 }
 

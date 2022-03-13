@@ -1,4 +1,5 @@
 @import "./styles/vars";
+@import "./styles/mixins";
 
 .wrapper {
     max-width: 1320px;
@@ -8,6 +9,16 @@
     margin: 0 auto;
     display: flex;
     flex-direction: column;
+    @include media($max: "xl") {
+        padding: 0 1.875em;
+    }
+    @include media($max: "lg") {
+        font-size: 0.95em;
+        padding: 0 0.6em;
+    }
+    @include media($max: "sm") {
+        padding: 0;
+    }
 }
 
 .main {

@@ -29,6 +29,7 @@
 
 .invalid {
     border-color: red;
+    @include focus-shadow(red);
     &::placeholder {
         color: rgba(red, 0.3);
     }

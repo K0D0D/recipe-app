@@ -1,4 +1,5 @@
 @import "../../styles/vars";
+@import "../../styles/mixins";
 
 .wrapper {
     max-width: 30em;
@@ -17,4 +18,10 @@
     font-size: 3.5em;
     font-family: $title-font;
     line-height: 1.2em;
+    @include media($max: "md") {
+        font-size: 3.25em;
+    }
+    @include media($max: "sm") {
+        font-size: 3em;
+    }
 }

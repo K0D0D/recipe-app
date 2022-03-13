@@ -1,4 +1,5 @@
 @import "../../styles/vars";
+@import "../../styles/mixins";
 
 .wrapper {
     margin-top: 2.5em;
@@ -7,6 +8,18 @@
     padding: 1.875em 3.75em 3.75em 3.75em;
     background-color: #fff;
     border-radius: 1em 1em 0 0;
+    @include media($max: "xl") {
+        padding: 1.875em 2.5em 3.75em 2.5em;
+    }
+    @include media($max: "lg") {
+        padding: 1.875em 1.63em 3.75em 1.63em;
+    }
+    @include media($max: "sm") {
+        border-radius: 0;
+    }
+    @include media($max: "xs") {
+        padding: 1.875em 1em 3.75em 1em;
+    }
 }
 
 .title {

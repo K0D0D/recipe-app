@@ -5,11 +5,16 @@ import { selectAuthUser } from "../../redux/auth/authSelectors";
 import { useRef, useState } from "react";
 import UserProfile from "../UserProfile/UserProfile";
 import useOutsideClick from "../../hooks/useOutsideClick";
+import MobileMenu from "../MobileMenu/MobileMenu";
+import useLockBodyScroll from "../../hooks/useLockBodyScroll";
+import FocusLock from "react-focus-lock";
 
 const Header = () => {
 	const user = useSelector(selectAuthUser);
 	const [profileIsOpen, setProfileIsOpen] = useState(false);
+	const [menuIsOpen, setMenuIsOpen] = useState(false);
 	const profileRef = useRef();
+	const menuRef = useRef();
 
 	const checkActiveClassName = ({ isActive }) => {
 		return isActive ? `${styles.link} ${styles.active}` : styles.link;
@@ -17,13 +22,26 @@ const Header = () => {
 
 	const toggleProfileIsOpen = () => setProfileIsOpen(!profileIsOpen);
 
+	const openMenu = () => setMenuIsOpen(true);
+
+	const closeMenu = () => setMenuIsOpen(false);
+
 	useOutsideClick(profileRef, () => {
 		if (profileIsOpen) setProfileIsOpen(false);
 	});
 
+	useOutsideClick(menuRef, () => {
+		if (menuIsOpen) setMenuIsOpen(false);
+	});
+
+	useLockBodyScroll(menuIsOpen);
+
 	return (
 		<header className={styles.header}>
-			<nav className={styles.nav}>
+			<button className={styles.menuBtn} onClick={openMenu}>
+				<span className="material-icons-round">menu</span>
+			</button>
+			<nav className={styles.primaryNav}>
 				<NavLink to="/" className={checkActiveClassName}>
 					<span className="material-icons-round">home</span>
 					Home
@@ -37,9 +55,14 @@ const Header = () => {
 					Shopping list
 				</NavLink>
 			</nav>
-			<nav className={styles.nav}>
+			<nav className={styles.secondaryNav}>
 				{user ? (
-					<div className={styles.user}>
+					<FocusLock
+						className={styles.user}
+						disabled={!profileIsOpen}
+						autoFocus
+						returnFocus	
+					>
 						<button
 							className={styles.profileBtn}
 							onClick={toggleProfileIsOpen}
@@ -57,7 +80,7 @@ const Header = () => {
 							)}
 						</button>
 						<UserProfile isOpen={profileIsOpen} profileRef={profileRef} />
-					</div>
+					</FocusLock>
 				) : (
 					<NavLink to="/auth" className={checkActiveClassName}>
 						<span className="material-icons-round">person</span>
@@ -65,6 +88,7 @@ const Header = () => {
 					</NavLink>
 				)}
 			</nav>
+			<MobileMenu isOpen={menuIsOpen} onCloseClick={closeMenu} menuRef={menuRef} />
 		</header>
 	);
 };
