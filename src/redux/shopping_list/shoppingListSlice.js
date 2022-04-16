@@ -37,6 +37,9 @@ const shoppingListSlice = createSlice({
 		},
 		deleteShoppingListCheckedItem: (state, { payload }) => {
 			state.checkedItems = state.checkedItems.filter((item) => item.id !== payload);
+		},
+		deleteShoppingListCheckedItems: (state) => {
+			state.checkedItems = [];
 		}
 	},
 	extraReducers: {
@@ -46,7 +49,6 @@ const shoppingListSlice = createSlice({
 		[addShoppingListItems.fulfilled]: (state) => {
 			state.isLoading = false;
 			state.error = null;
-			state.checkedItems = [];
 		},
 		[addShoppingListItems.rejected]: (state, { payload }) => {
 			state.isLoading = false;
@@ -96,7 +98,8 @@ export const {
 	setShoppingListIsLoading,
 	setShoppingListError,
 	addShoppingListCheckedItem,
-	deleteShoppingListCheckedItem
+	deleteShoppingListCheckedItem,
+	deleteShoppingListCheckedItems
 } = actions;
 
 export default reducer;

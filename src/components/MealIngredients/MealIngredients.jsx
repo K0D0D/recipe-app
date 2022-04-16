@@ -8,7 +8,8 @@ import Button from "../Button/Button";
 import styles from "./MealIngredients.module.scss";
 import {
 	addShoppingListCheckedItem,
-	deleteShoppingListCheckedItem
+	deleteShoppingListCheckedItem,
+	deleteShoppingListCheckedItems
 } from "../../redux/shopping_list/shoppingListSlice";
 import {
 	selectShoppingListCheckedItems,
@@ -44,6 +45,8 @@ const MealIngredients = () => {
 		if (!checkedItems.length) return toast.error("You haven't chosen anything");
 
 		dispatch(addShoppingListItems(checkedItems));
+
+		dispatch(deleteShoppingListCheckedItems());
 	};
 
 	return (

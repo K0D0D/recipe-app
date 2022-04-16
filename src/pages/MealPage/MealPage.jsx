@@ -16,6 +16,7 @@ import MealDirections from "../../components/MealDirections/MealDirections";
 import MealPageSkeleton from "./MealPageSkeleton";
 import { selectAuthUser } from "../../redux/auth/authSelectors";
 import { checkBookmark } from "../../redux/bookmarks/bookmarksThunks";
+import { deleteShoppingListCheckedItems } from "../../redux/shopping_list/shoppingListSlice";
 
 const MealPage = () => {
 	const { id } = useParams();
@@ -34,9 +35,16 @@ const MealPage = () => {
 		if (user) dispatch(checkBookmark(id));
 	}, [dispatch, user, id]);
 
+	useEffect(() => {
+		dispatch(deleteShoppingListCheckedItems());
+	}, [dispatch]);
+
 	return (
 		<>
-			<BottomWrapper title={!isLoading && details?.title} showTitleSkeleton={isLoading}>
+			<BottomWrapper
+				title={!isLoading && details?.title}
+				showTitleSkeleton={isLoading}
+			>
 				<div className={styles.inner}>
 					{isLoading ? (
 						<MealPageSkeleton />
